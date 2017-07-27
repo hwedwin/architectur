@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface GoodsMapperDAO extends GoodsDAO{
-	public List<Integer> getIdsByConditionPage(GoodsQueryModel gqm);
-	public List<GoodsModel> getByIds(String ids);
+	 List<Integer> getIdsByConditionPage(GoodsQueryModel gqm);
+	 List<GoodsModel> getByIds(String ids);
 }

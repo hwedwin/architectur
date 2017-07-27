@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value="/goods")
 public class GoodsController {
 	@Autowired
-	private IGoodsService iservice = null;
+	private IGoodsService iservice;
 	
 	@RequestMapping(value="toAdd",method=RequestMethod.GET)
 	public String toAdd(){
@@ -50,7 +50,7 @@ public class GoodsController {
 	}
 	@RequestMapping(value="toList",method=RequestMethod.GET)
 	public String toList(@ModelAttribute("wm")GoodsWebModel wm,Model model){
-		GoodsQueryModel qm = null;
+		GoodsQueryModel qm;
 		if(wm.getQueryJsonStr()==null || wm.getQueryJsonStr().trim().length()==0){
 			qm =  new GoodsQueryModel();
 		}else{

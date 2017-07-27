@@ -1,57 +1,54 @@
 package com.sishuok.architecture1.ordermgr.queue;
 
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.MapMessage;
-import javax.jms.Message;
-import javax.jms.MessageConsumer;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.ActiveMQMessageProducer;
-import org.apache.activemq.MessageTransformer;
+
+import javax.jms.*;
+import java.util.Objects;
 
 public class QueueSender {
-	private static ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
-			"tcp://192.168.1.205:61616");
-	
-	public static void sendMsg(int customerUuid) {
-		Connection connection = null;
-		Session session = null;
-		try {
-			connection = connectionFactory.createConnection();
-			connection.start();
+    private static ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
+            "tcp://192.168.1.205:61616");
 
-			session = connection.createSession(Boolean.TRUE,
-					Session.AUTO_ACKNOWLEDGE);
+    public static void sendMsg(int customerUuid) {
+        Connection connection = null;
+        Session session = null;
+        try {
+            connection = connectionFactory.createConnection();
+            connection.start();
 
-			Destination destination = session.createQueue("order-queue");
+            session = connection.createSession(Boolean.TRUE,
+                    Session.AUTO_ACKNOWLEDGE);
 
-			ActiveMQMessageProducer producer = (ActiveMQMessageProducer) session
-					.createProducer(destination);
+            Destination destination = session.createQueue("order-queue");
 
-			TextMessage message = session.createTextMessage(""+customerUuid);
+            ActiveMQMessageProducer producer = (ActiveMQMessageProducer) session
+                    .createProducer(destination);
 
-			producer.send(message);
-			
-			session.commit();
-		} catch (Exception err) {
-			err.printStackTrace();
-		} finally {
-			try {
-				session.close();
-			} catch (JMSException e) {
-				e.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (JMSException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+            TextMessage message = session.createTextMessage("" + customerUuid);
+
+            producer.send(message);
+
+            session.commit();
+        } catch (Exception err) {
+            err.printStackTrace();
+        } finally {
+            try {
+                if (!Objects.isNull(session)) {
+                    session.close();
+                }
+
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (!Objects.isNull(session)) {
+                    connection.close();
+                }
+
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
