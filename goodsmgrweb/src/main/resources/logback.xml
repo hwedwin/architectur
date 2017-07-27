@@ -12,7 +12,7 @@
     <root level="debug">
         <appender-ref ref="STDOUT"/>
     </root>
-    <logger name="org" level="error" /> 
+    <logger name="org" level="debug" />
 </configuration>
 
 

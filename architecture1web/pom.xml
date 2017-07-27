@@ -107,6 +107,7 @@
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<stopPort>9999</stopPort>
 					<webAppConfig>
+						<allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
 						<contextPath>/</contextPath>
 					</webAppConfig>
 				</configuration>

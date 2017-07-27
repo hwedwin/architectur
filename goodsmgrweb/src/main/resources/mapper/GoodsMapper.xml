@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>    
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.sishuok.architecture1.goodsmgr.dao.GoodsMapperDAO">  
+<mapper namespace="com.sishuok.architecture1.goodsmgr.dao.GoodsMapperDAO">
      <insert id="create" parameterType="GM">
      	insert into tbl_goods (name,imgPath,description) 
      	 values(#{name},#{imgPath},#{description})
@@ -13,8 +13,7 @@
      <delete id="delete" parameterType="int">
      	delete from tbl_goods where uuid=#{uuid}
      </delete>
-     
-    <select id="getByUuid" parameterType="int" resultType="GM">  
+    <select id="getByUuid" parameterType="int" resultType="GM">
         select * from tbl_goods where uuid=#{uuid}
     </select>  
     <select id="getByConditionPage" parameterType="GQM" resultType="GM">  
